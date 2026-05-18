@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Счётчик баллов студента</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="main-container">
+    <h1 class="fancy-title">Счётчик баллов студента</h1>
+    <div class="role-switch">
+      <button class="role-btn active" id="teacherBtn">Учитель</button>
+      <button class="role-btn" id="studentBtn">Ученик</button>
+    </div>
+
+    <!-- Учитель -->
+    <div class="teacher-section visible" id="teacherSection">
+      <label>Выберите предмет</label>
+      <select class="subjects-select" id="subjectSelect">
+        <option value="" disabled selected>Выберите предмет</option>
+        <option value="Математика">Математика</option>
+        <option value="Русский язык">Русский язык</option>
+        <option value="Литература">Литература</option>
+        <option value="Информатика">Информатика</option>
+        <option value="Физика">Физика</option>
+        <option value="Биология">Биология</option>
+        <option value="Химия">Химия</option>
+        <option value="История">История</option>
+        <option value="Английский язык">Английский язык</option>
+        <option value="Обществознание">Обществознание</option>
+        <option value="География">География</option>
+      </select>
+
+      <label for="studentNameTeacher">Имя студента</label>
+      <input type="text" id="studentNameTeacher" placeholder="Введите имя" />
+
+      <label for="scoreInput">Введите балл или отметку "Н" (Не был на занятии)</label>
+      <div style="display: flex; gap: 8px;">
+        <select id="scoreInput" style="flex:2; min-width: 120px;">
+          <option value="" selected disabled>Баллы</option>
+          <option value="Н">Н (Не был)</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <input type="text" id="commentInput" placeholder="Комментарий (опционально)" style="flex:3;" maxlength="120" />
+      </div>
+
+      <button id="addScoreBtn" style="margin-top:14px;">Поставить балл</button>
+      <hr class="separator"/>
+      <!-- Панель управления оценками -->
+      <div id="manageScoresPanel" style="margin-top:10px;">
+        <button id="showStudentScoresBtn">Показать и управлять оценками</button>
+        <div id="manageScoresArea" style="display:none; margin-top:10px;"></div>
+      </div>
+    </div>
+
+    <!-- Ученик -->
+    <div class="student-section" id="studentSection">
+      <label for="studentNameStudent">Имя студента</label>
+      <input type="text" id="studentNameStudent" placeholder="Введите своё имя" />
+
+      <button id="viewScoresBtn">Показать баллы</button>
+      <!-- Добавлены новые функции для ученика -->
+      <div class="student-tools" id="studentTools" style="display:none;">
+        <div>
+          <label for="selectSubjectToView">Выбрать предмет:</label>
+          <select id="selectSubjectToView"></select>
+          <button id="viewBySubjectBtn">Показать оценки по предмету</button>
+        </div>
+        <div>
+          <button id="downloadScoresBtn">Скачать мои оценки (JSON)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="result" id="resultPanel" style="display:none;">
+      <div id="subjectListResults"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
