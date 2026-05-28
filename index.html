@@ -1,86 +1,153 @@
+<!-- ========================= -->
+<!-- index.html -->
+<!-- ========================= -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Счётчик баллов студента</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css"/>
+  <title>Student Score System</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div class="main-container">
-    <h1 class="fancy-title">Счётчик баллов студента</h1>
-    <div class="role-switch">
-      <button class="role-btn active" id="teacherBtn">Учитель</button>
-      <button class="role-btn" id="studentBtn">Ученик</button>
-    </div>
 
-    <!-- Учитель -->
-    <div class="teacher-section visible" id="teacherSection">
-      <label>Выберите предмет</label>
-      <select class="subjects-select" id="subjectSelect">
-        <option value="" disabled selected>Выберите предмет</option>
-        <option value="Математика">Математика</option>
-        <option value="Русский язык">Русский язык</option>
-        <option value="Литература">Литература</option>
-        <option value="Информатика">Информатика</option>
-        <option value="Физика">Физика</option>
-        <option value="Биология">Биология</option>
-        <option value="Химия">Химия</option>
-        <option value="История">История</option>
-        <option value="Английский язык">Английский язык</option>
-        <option value="Обществознание">Обществознание</option>
-        <option value="География">География</option>
-      </select>
-
-      <label for="studentNameTeacher">Имя студента</label>
-      <input type="text" id="studentNameTeacher" placeholder="Введите имя" />
-
-      <label for="scoreInput">Введите балл или отметку "Н" (Не был на занятии)</label>
-      <div style="display: flex; gap: 8px;">
-        <select id="scoreInput" style="flex:2; min-width: 120px;">
-          <option value="" selected disabled>Баллы</option>
-          <option value="Н">Н (Не был)</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <input type="text" id="commentInput" placeholder="Комментарий (опционально)" style="flex:3;" maxlength="120" />
-      </div>
-
-      <button id="addScoreBtn" style="margin-top:14px;">Поставить балл</button>
-      <hr class="separator"/>
-      <!-- Панель управления оценками -->
-      <div id="manageScoresPanel" style="margin-top:10px;">
-        <button id="showStudentScoresBtn">Показать и управлять оценками</button>
-        <div id="manageScoresArea" style="display:none; margin-top:10px;"></div>
-      </div>
-    </div>
-
-    <!-- Ученик -->
-    <div class="student-section" id="studentSection">
-      <label for="studentNameStudent">Имя студента</label>
-      <input type="text" id="studentNameStudent" placeholder="Введите своё имя" />
-
-      <button id="viewScoresBtn">Показать баллы</button>
-      <!-- Добавлены новые функции для ученика -->
-      <div class="student-tools" id="studentTools" style="display:none;">
-        <div>
-          <label for="selectSubjectToView">Выбрать предмет:</label>
-          <select id="selectSubjectToView"></select>
-          <button id="viewBySubjectBtn">Показать оценки по предмету</button>
-        </div>
-        <div>
-          <button id="downloadScoresBtn">Скачать мои оценки (JSON)</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="result" id="resultPanel" style="display:none;">
-      <div id="subjectListResults"></div>
-    </div>
+  <div class="background">
+    <div class="circle one"></div>
+    <div class="circle two"></div>
   </div>
+
+  <div class="container">
+
+    <div class="top-bar">
+      <h1>📚 Student Score System</h1>
+
+      <button id="themeToggle" class="theme-btn">
+        🌙
+      </button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" id="teacherBtn">
+        👨‍🏫 Учитель
+      </button>
+
+      <button class="tab" id="studentBtn">
+        🎓 Ученик
+      </button>
+    </div>
+
+    <!-- ================= -->
+    <!-- Teacher Section -->
+    <!-- ================= -->
+
+    <section id="teacherSection" class="panel active-panel">
+
+      <div class="card">
+
+        <label>Предмет</label>
+
+        <select id="subject">
+          <option value="">Выберите предмет</option>
+          <option>Математика</option>
+          <option>Информатика</option>
+          <option>Русский язык</option>
+          <option>Физика</option>
+          <option>История</option>
+          <option>Биология</option>
+        </select>
+
+        <label>Имя студента</label>
+        <input type="text" id="teacherStudentName" placeholder="Введите имя">
+
+        <label>Оценка</label>
+
+        <div class="score-row">
+
+          <select id="score">
+            <option value="">Баллы</option>
+            <option value="Н">Н</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <input type="text" id="comment" placeholder="Комментарий">
+        </div>
+
+        <button class="main-btn" id="addBtn">
+          ➕ Добавить оценку
+        </button>
+
+      </div>
+
+      <div class="card">
+
+        <div class="manage-top">
+          <h3>Управление оценками</h3>
+
+          <button class="secondary-btn" id="showManageBtn">
+            Показать
+          </button>
+        </div>
+
+        <div id="manageArea"></div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= -->
+    <!-- Student Section -->
+    <!-- ================= -->
+
+    <section id="studentSection" class="panel">
+
+      <div class="card">
+
+        <label>Введите своё имя</label>
+
+        <input type="text" id="studentName" placeholder="Имя студента">
+
+        <button class="main-btn" id="viewBtn">
+          📊 Показать оценки
+        </button>
+
+      </div>
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <span>Средний балл</span>
+          <h2 id="avgStat">0.00</h2>
+        </div>
+
+        <div class="stat-card">
+          <span>Всего оценок</span>
+          <h2 id="countStat">0</h2>
+        </div>
+
+        <div class="stat-card">
+          <span>Пропуски</span>
+          <h2 id="skipStat">0</h2>
+        </div>
+
+      </div>
+
+      <div id="studentResults"></div>
+
+    </section>
+
+  </div>
+
+  <div id="toast"></div>
+
   <script src="script.js"></script>
+
 </body>
 </html>
